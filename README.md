@@ -1,6 +1,3 @@
-Sure! Here's a clear and professional `README.md` for your project:
-
-```markdown
 # ExO - Expert Opinion Webapp
 
 A FastAPI-based web application for pairwise image comparison and selection. Designed for lightweight expert input collection through a simple web interface, the app shows randomized pairs of images and records user preferences, while avoiding repeated combinations. Additionally, it provides on-the-fly TIFF-to-PNG conversion for compatibility with web formats.
@@ -76,6 +73,3 @@ This project is licensed under the MIT License. See [LICENSE](./LICENSE) for det
 Laboratory of Data Engineering  
 Istituto di ricerca per l'innovazione tecnologica (RIT)  
 Area Science Park, Trieste, Italy
-```
-
-Let me know if you’d like badges, Docker support, or GitHub Actions CI setup added to this!
