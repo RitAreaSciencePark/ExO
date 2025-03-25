@@ -30,7 +30,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 IMAGES_FOLDER = "images"
-CSV_FILE = "selections.csv"
+CSV_FILE = os.path.join("output", "selections.csv")
 # Global variable to store the last archived file
 latest_archive = None
 
@@ -65,7 +65,7 @@ async def index(request: Request):
         global latest_archive
         # Archive the current CSV with a timestamp
         timestamp = datetime.datetime.now().strftime("%Y_%m_%d_%H%M%S")
-        archive_filename = f"selection_{timestamp}.csv"
+        archive_filename = os.path.join("output", f"selection_{timestamp}.csv")
         latest_archive = archive_filename
 
         with open(CSV_FILE, 'r') as src, open(archive_filename, 'w') as dst:

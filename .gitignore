@@ -1,3 +1,2 @@
 /images/*
-/selections.csv
-/selection_*.csv
+/output/selection*.csv

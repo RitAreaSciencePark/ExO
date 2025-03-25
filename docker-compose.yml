@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  fastapi-app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - images_data:/app/images
+      - output_data:/app/output
+    restart: unless-stopped
+
+volumes:
+  images_data:
+  output_data:
