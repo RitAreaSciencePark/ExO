@@ -1,9 +1,3 @@
-/images/scan speed-1-016.tif
-/images/scan speed-2-017.tif
-/images/scan speed-3-018.tif
-/images/scan speed-4-019.tif
-/images/scan speed-5-020.tif
-/images/scan speed-6-021.tif
-/images/scan speed-7-022.tif
+/images/*
 /selections.csv
-/selection_2025_03_25_114921.csv
+/selection_*.csv

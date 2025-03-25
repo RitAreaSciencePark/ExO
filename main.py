@@ -11,7 +11,7 @@
 # and prevents duplicate comparisons. A simple image conversion endpoint is also provided.
 
 from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse, RedirectResponse, Response
+from fastapi.responses import HTMLResponse, RedirectResponse, Response, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from PIL import Image
@@ -31,6 +31,8 @@ templates = Jinja2Templates(directory="templates")
 
 IMAGES_FOLDER = "images"
 CSV_FILE = "selections.csv"
+# Global variable to store the last archived file
+latest_archive = None
 
 # Track image combinations already presented to the user
 used_combinations = set()
@@ -60,9 +62,11 @@ async def index(request: Request):
     img1, img2 = get_two_unique_images()
 
     if img1 is None or img2 is None:
+        global latest_archive
         # Archive the current CSV with a timestamp
         timestamp = datetime.datetime.now().strftime("%Y_%m_%d_%H%M%S")
         archive_filename = f"selection_{timestamp}.csv"
+        latest_archive = archive_filename
 
         with open(CSV_FILE, 'r') as src, open(archive_filename, 'w') as dst:
             dst.write(src.read())
@@ -96,3 +100,9 @@ async def convert_tiff(image_name: str):
     image.save(buffer, format="PNG")
 
     return Response(content=buffer.getvalue(), media_type="image/png")
+
+@app.get("/download_csv")
+async def download_csv():
+    if latest_archive and os.path.exists(latest_archive):
+        return FileResponse(path=latest_archive, filename=latest_archive, media_type='text/csv')
+    return Response(content="No archived file available.", status_code=404)
