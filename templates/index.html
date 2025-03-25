@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Image</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h2>Choose your preferred image:</h2>
+    <div class="image-container">
+        <form action="/select" method="post">
+            <input type="hidden" name="selected" value="{{ img1 }}">
+            <input type="hidden" name="other" value="{{ img2 }}">
+            <button type="submit">
+                <img src="/tiff/{{ img1 }}" width="600">
+            </button>
+        </form>
+
+        <form action="/select" method="post">
+            <input type="hidden" name="selected" value="{{ img2 }}">
+            <input type="hidden" name="other" value="{{ img1 }}">
+            <button type="submit">
+                <img src="/tiff/{{ img2 }}" width="600">
+            </button>
+        </form>
+    </div>
+</body>
+</html>
