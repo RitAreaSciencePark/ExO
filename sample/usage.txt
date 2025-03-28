@@ -1,0 +1,1 @@
+rsync -av --files-from=filelist.txt ./ xxx@xxx:~/images\ Files/
