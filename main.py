@@ -29,8 +29,13 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
-IMAGES_FOLDER = "images"
-CSV_FILE = os.path.join("output", "selections.csv")
+IMAGES_FOLDER = "/images"
+OUTPUT_FOLDER = "/output"
+CSV_FILE = os.path.join(OUTPUT_FOLDER, "selections.csv")
+
+# Ensure folders exist
+os.makedirs(IMAGES_FOLDER, exist_ok=True)
+os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 # Global variable to store the last archived file
 latest_archive = None
 
