@@ -29,8 +29,9 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
-IMAGES_FOLDER = "/images"
-OUTPUT_FOLDER = "/output"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+IMAGES_FOLDER = os.path.join(BASE_DIR, "images")
+OUTPUT_FOLDER = os.path.join(BASE_DIR, "output")
 CSV_FILE = os.path.join(OUTPUT_FOLDER, "selections.csv")
 
 # Ensure folders exist
