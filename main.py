@@ -14,6 +14,9 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse, RedirectResponse, Response, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi import UploadFile, File
+import shutil
+
 from PIL import Image
 import pandas as pd
 import random
