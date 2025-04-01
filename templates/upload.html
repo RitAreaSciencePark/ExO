@@ -1,0 +1,16 @@
+<!-- templates/upload.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload TIFF Images</title>
+</head>
+<body>
+    <h1>Upload TIFF Image</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".tiff,.tif" required>
+        <button type="submit">Upload</button>
+    </form>
+    <br>
+    <a href="/">← Back to Comparison</a>
+</body>
+</html>

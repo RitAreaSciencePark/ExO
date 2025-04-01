@@ -112,3 +112,18 @@ async def download_csv():
     if latest_archive and os.path.exists(latest_archive):
         return FileResponse(path=latest_archive, filename=latest_archive, media_type='text/csv')
     return Response(content="No archived file available.", status_code=404)
+
+@app.get("/upload", response_class=HTMLResponse)
+async def upload_page(request: Request):
+    return templates.TemplateResponse("upload.html", {"request": request})
+
+@app.post("/upload")
+async def upload_image(file: UploadFile = File(...)):
+    if not file.filename.lower().endswith((".tif", ".tiff")):
+        return Response(content="Only TIFF files are allowed.", status_code=400)
+
+    destination_path = os.path.join(IMAGES_FOLDER, file.filename)
+    with open(destination_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    return RedirectResponse(url="/upload", status_code=303)
