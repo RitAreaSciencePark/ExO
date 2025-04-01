@@ -19,8 +19,10 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN mkdir -p /app/images && chmod 777 /app/images
-RUN mkdir -p /app/output && chmod 777 /app/output
+RUN mkdir -p /app/output /app/images \
+ && chmod -R g+rwX /app/output /app/images \
+ && chgrp -R 0 /app/output /app/images
+ 
 # Copy app files
 COPY . .
 
