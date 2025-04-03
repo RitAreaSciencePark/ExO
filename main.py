@@ -145,3 +145,21 @@ async def delete_all_images():
             return Response(content=f"Error deleting {filename}: {e}", status_code=500)
 
     return RedirectResponse(url="/upload", status_code=303)
+
+@app.post("/force_finish")
+async def force_finish(request: Request):
+    global latest_archive
+
+    timestamp = datetime.datetime.now().strftime("%Y_%m_%d_%H%M%S")
+    archive_filename = os.path.join("output", f"selection_{timestamp}.csv")
+    latest_archive = archive_filename
+
+    with open(CSV_FILE, 'r') as src, open(archive_filename, 'w') as dst:
+        dst.write(src.read())
+
+    with open(CSV_FILE, 'w') as clear_file:
+        clear_file.write("")
+
+    used_combinations.clear()
+
+    return templates.TemplateResponse("finished.html", {"request": request})
