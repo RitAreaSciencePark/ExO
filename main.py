@@ -134,3 +134,14 @@ async def upload_image(files: List[UploadFile] = File(...)):
             shutil.copyfileobj(file.file, buffer)
 
     return RedirectResponse(url="/upload", status_code=303)
+
+@app.post("/delete_images")
+async def delete_all_images():
+    for filename in os.listdir(IMAGES_FOLDER):
+        file_path = os.path.join(IMAGES_FOLDER, filename)
+        try:
+            os.remove(file_path)
+        except Exception as e:
+            return Response(content=f"Error deleting {filename}: {e}", status_code=500)
+
+    return RedirectResponse(url="/upload", status_code=303)

@@ -10,6 +10,13 @@
         <input type="file" name="files" accept=".tiff,.tif" multiple required>
         <button type="submit">Upload</button>
     </form>
+
+    <br>
+
+    <form action="/delete_images" method="post" onsubmit="return confirm('Are you sure you want to delete all images?');">
+        <button type="submit" style="color: red;">Delete All Images</button>
+    </form>
+
     <br>
     <a href="/">← Back to Comparison</a>
 </body>
