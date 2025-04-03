@@ -23,6 +23,8 @@ import random
 import os
 import io
 import datetime
+from typing import List
+
 
 app = FastAPI()
 
@@ -120,13 +122,15 @@ async def download_csv():
 async def upload_page(request: Request):
     return templates.TemplateResponse("upload.html", {"request": request})
 
-@app.post("/upload")
-async def upload_image(file: UploadFile = File(...)):
-    if not file.filename.lower().endswith((".tif", ".tiff")):
-        return Response(content="Only TIFF files are allowed.", status_code=400)
 
-    destination_path = os.path.join(IMAGES_FOLDER, file.filename)
-    with open(destination_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
+@app.post("/upload")
+async def upload_image(files: List[UploadFile] = File(...)):
+    for file in files:
+        if not file.filename.lower().endswith((".tif", ".tiff")):
+            return Response(content=f"File {file.filename} is not a TIFF.", status_code=400)
+
+        destination_path = os.path.join(IMAGES_FOLDER, file.filename)
+        with open(destination_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
 
     return RedirectResponse(url="/upload", status_code=303)
